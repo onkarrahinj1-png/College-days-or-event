@@ -1,0 +1,178 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f4f7fe;
+    color: #333;
+    padding-bottom: 40px;
+}
+
+/* Header Styling */
+header {
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    color: white;
+    text-align: center;
+    padding: 2.5rem 1rem;
+}
+
+header h1 {
+    font-size: 2.2rem;
+    margin-bottom: 8px;
+}
+
+/* Filter Controls */
+.filter-container {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin: 25px 10px;
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    padding: 9px 20px;
+    border: 2px solid #1e3c72;
+    background: white;
+    color: #1e3c72;
+    border-radius: 20px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.filter-btn:hover, .filter-btn.active {
+    background: #1e3c72;
+    color: white;
+}
+
+/* Layout Grid */
+.events-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+/* Cards */
+.card {
+    background: white;
+    border-radius: 12px;
+    padding: 25px 22px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    position: relative;
+    border-top: 5px solid #1e3c72;
+    transition: transform 0.2s ease-in-out;
+    cursor: pointer;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card h3 {
+    color: #1e3c72;
+    margin-top: 10px;
+    font-size: 1.3rem;
+}
+
+.tap-hint {
+    font-size: 0.85rem;
+    color: #2a5298;
+    margin-top: 8px;
+    font-weight: 600;
+}
+
+.badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: #eef2ff;
+    color: #1e3c72;
+    padding: 4px 10px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    border-radius: 12px;
+}
+
+/* 📄 Navigation & Detail Page Styling */
+.hidden-page {
+    display: none;
+}
+
+.detail-container {
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+.back-btn {
+    background-color: #1e3c72;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    margin-bottom: 20px;
+    transition: background 0.2s ease;
+}
+
+.back-btn:hover {
+    background-color: #2a5298;
+}
+
+.detail-content {
+    display: none;
+}
+
+.detail-content.active {
+    display: block;
+}
+
+.detail-content h2 {
+    color: #1e3c72;
+    margin-bottom: 15px;
+    font-size: 1.8rem;
+}
+
+/* 📸 Image Styling */
+.detail-img {
+    width: 100%;
+    max-height: 400px;
+    object-fit: cover;
+    border-radius: 8px;
+    display: block;
+    margin-bottom: 20px;
+}
+
+.info-box {
+    line-height: 1.7;
+    font-size: 1rem;
+    color: #444;
+}
+
+.info-box p {
+    margin-bottom: 8px;
+}
+
+.info-box .desc {
+    margin-top: 15px;
+    font-size: 1.05rem;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    margin-top: 40px;
+    color: #777;
+    font-size: 0.9rem;
+}
