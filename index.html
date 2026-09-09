@@ -6,7 +6,7 @@
     <title>College Events & Festivals</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        /* फूड फेस्टिवल में दो फोटो एक साथ दिखाने के लिए स्टाइल */
+        /* फूड फेस्टिवल में दो फोटो को बाजू में छोटा करके दिखाने के लिए CSS */
         .multi-img-container {
             display: flex;
             gap: 10px;
@@ -97,15 +97,15 @@
     </div>
 
 
-    <!-- 📄 Page 2: Event Detail View (Next Page) -->
+    <!-- 📄 Page 2: Event Detail View -->
     <div id="event-detail-page" class="hidden-page">
         <div class="detail-container">
             <button class="back-btn" onclick="showListPage()">← Back to Events List</button>
 
-            <!-- 1. Bollywood Day Detail (पहल लिंक - IMG-20260907-WA0028.jpg) -->
+            <!-- 1. Bollywood Day Detail -->
             <div id="detail-bollywood" class="detail-content">
                 <h2>Bollywood Day</h2>
-                <img src="https://github.com/onkarrahinj1-png/Image-/raw/refs/heads/main/IMG-20260907-WA0028.jpg" alt="Bollywood Day" class="detail-img">
+                <img src="IMG-20260907-WA0028.jpg" alt="Bollywood Day" class="detail-img">
                 <div class="info-box">
                     <p><strong>Category:</strong> Cultural</p>
                     <p><strong>Date:</strong> Coming Soon</p>
@@ -116,7 +116,7 @@
             <!-- 2. IT Project Expo Detail -->
             <div id="detail-expo" class="detail-content">
                 <h2>IT Project Expo</h2>
-                <img src="यहाँ_डायरेक्ट_लिंक_पेस्ट_करें" alt="IT Project Expo" class="detail-img">
+                <img src="IMG-20260211-WA0042.jpg" alt="IT Project Expo" class="detail-img">
                 <div class="info-box">
                     <p><strong>Category:</strong> Academic</p>
                     <p><strong>Date:</strong> Coming Soon</p>
@@ -124,8 +124,61 @@
                 </div>
             </div>
 
-            <!-- 3. Sports Day Detail (दूसरा लिंक - IMG-20260907-WA0043.jpg) -->
+            <!-- 3. Sports Day Detail -->
             <div id="detail-sports" class="detail-content">
                 <h2>Annual Sports Days</h2>
-                <img src="https://github.com/onkarrahinj1-png/Image-/raw/refs/heads/main/IMG-20260907-WA0043.jpg" alt="Annual Sports Days" class="detail-img">
+                <img src="IMG-20260907-WA0043.jpg" alt="Annual Sports Days" class="detail-img">
                 <div class="info-box">
+                    <p><strong>Category:</strong> Sports</p>
+                    <p><strong>Date:</strong> Coming Soon</p>
+                    <p class="desc">An action-packed sports festival featuring energetic inter-class competitions such as tug of war, 100m sprint races, badminton, chess, and traditional games like sui-dhaaga tournaments.</p>
+                </div>
+            </div>
+
+            <!-- 4. Traditional Day Detail -->
+            <div id="detail-traditional" class="detail-content">
+                <h2>Traditional Day Festival</h2>
+                <img src="IMG-20260907-WA0028.jpg" alt="Traditional Day Festival" class="detail-img">
+                <div class="info-box">
+                    <p><strong>Category:</strong> Cultural</p>
+                    <p><strong>Date:</strong> Coming Soon</p>
+                    <p class="desc">A celebration of cultural diversity where students wore vibrant ethnic attire, sarees, kurtas, and traditional regional outfits. The event featured folk dance performances, traditional music shows, and various cultural stalls.</p>
+                </div>
+            </div>
+
+            <!-- 5. Color Day Detail -->
+            <div id="detail-colorday" class="detail-content">
+                <h2>Color Day</h2>
+                <img src="IMG-20260907-WA0028.jpg" alt="Color Day" class="detail-img">
+                <div class="info-box">
+                    <p><strong>Category:</strong> Cultural</p>
+                    <p><strong>Date:</strong> Coming Soon</p>
+                    <p class="desc">Everyone attended the event wearing stylish black shirts and grey pants in party wear themes. All the students and faculty looked incredibly stylish and well-dressed, creating a classy theme and vibrant atmosphere across the campus.</p>
+                </div>
+            </div>
+
+            <!-- 6. Food Festival Detail -->
+            <div id="detail-foodfestival" class="detail-content">
+                <h2>Food Festival Day</h2>
+                <div class="multi-img-container">
+                    <img src="IMG-20260211-WA0001.jpg" alt="Food Stall Photo 1">
+                    <img src="IMG-20260210-WA0006.jpg" alt="Food Stall Photo 2">
+                </div>
+                <div class="info-box">
+                    <p><strong>Category:</strong> Cultural</p>
+                    <p><strong>Date:</strong> Coming Soon</p>
+                    <p class="desc">Students set up various delicious food stalls including Pani Puri, Cold Coffee, snacks, and refreshing drinks. It was a hugely successful food fair where everyone enjoyed tasting different dishes and hanging out with friends.</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer>
+        <p>&copy; 2026 Computer Applications Department | Student Portal</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
