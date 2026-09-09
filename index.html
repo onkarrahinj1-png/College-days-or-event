@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>College Events & Festivals</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* फूड फेस्टिवल में दो फोटो एक साथ दिखाने के लिए स्टाइल */
+        .multi-img-container {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+        .multi-img-container img {
+            width: 48%;
+            max-width: 300px;
+            height: auto;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+        @media (max-width: 600px) {
+            .multi-img-container img {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header>
+        <h1>🎓 College Events & Festivals</h1>
+        <p>Check out all the upcoming programs and events in our college</p>
+    </header>
+
+    <!-- 📄 Page 1: Main Events List Page -->
+    <div id="events-list-page">
+
+        <!-- Filter Buttons -->
+        <div class="filter-container">
+            <button class="filter-btn active" onclick="filterEvents('all', event)">All</button>
+            <button class="filter-btn" onclick="filterEvents('academic', event)">Academic</button>
+            <button class="filter-btn" onclick="filterEvents('cultural', event)">Cultural</button>
+            <button class="filter-btn" onclick="filterEvents('sports', event)">Sports</button>
+        </div>
+
+        <!-- Events Grid -->
+        <main class="events-grid">
+            
+            <!-- 1. Bollywood Day -->
+            <div class="card cultural" onclick="openDetailPage('bollywood')">
+                <span class="badge">Cultural</span>
+                <h3>Bollywood Day</h3>
+                <p class="tap-hint">👉 Click to view details & photo</p>
+            </div>
+
+            <!-- 2. IT Project Expo -->
+            <div class="card academic" onclick="openDetailPage('expo')">
+                <span class="badge">Academic</span>
+                <h3>IT Project Expo</h3>
+                <p class="tap-hint">👉 Click to view details & photo</p>
+            </div>
+
+            <!-- 3. Annual Sports Days -->
+            <div class="card sports" onclick="openDetailPage('sports')">
+                <span class="badge">Sports</span>
+                <h3>Annual Sports Days</h3>
+                <p class="tap-hint">👉 Click to view details & photo</p>
+            </div>
+
+            <!-- 4. Traditional Day Festival -->
+            <div class="card cultural" onclick="openDetailPage('traditional')">
+                <span class="badge">Cultural</span>
+                <h3>Traditional Day Festival</h3>
+                <p class="tap-hint">👉 Click to view details & photo</p>
+            </div>
+
+            <!-- 5. Color Day -->
+            <div class="card cultural" onclick="openDetailPage('colorday')">
+                <span class="badge">Cultural</span>
+                <h3>Color Day</h3>
+                <p class="tap-hint">👉 Click to view details & photo</p>
+            </div>
+
+            <!-- 6. Food Festival -->
+            <div class="card cultural" onclick="openDetailPage('foodfestival')">
+                <span class="badge">Cultural</span>
+                <h3>Food Festival Day</h3>
+                <p class="tap-hint">👉 Click to view details & photo</p>
+            </div>
+
+        </main>
+    </div>
+
+
+    <!-- 📄 Page 2: Event Detail View (Next Page) -->
+    <div id="event-detail-page" class="hidden-page">
+        <div class="detail-container">
+            <button class="back-btn" onclick="showListPage()">← Back to Events List</button>
+
+            <!-- 1. Bollywood Day Detail (पहल लिंक - IMG-20260907-WA0028.jpg) -->
+            <div id="detail-bollywood" class="detail-content">
+                <h2>Bollywood Day</h2>
+                <img src="https://github.com/onkarrahinj1-png/Image-/raw/refs/heads/main/IMG-20260907-WA0028.jpg" alt="Bollywood Day" class="detail-img">
+                <div class="info-box">
+                    <p><strong>Category:</strong> Cultural</p>
+                    <p><strong>Date:</strong> Coming Soon</p>
+                    <p class="desc">Students dressed up as iconic Bollywood characters from movies like 3 Idiots, classic retro films, and modern blockbusters. Everyone showcased unique costumes, participated in a Bollywood ramp walk, and recreated iconic dialogue deliveries and group dance performances.</p>
+                </div>
+            </div>
+
+            <!-- 2. IT Project Expo Detail -->
+            <div id="detail-expo" class="detail-content">
+                <h2>IT Project Expo</h2>
+                <img src="यहाँ_डायरेक्ट_लिंक_पेस्ट_करें" alt="IT Project Expo" class="detail-img">
+                <div class="info-box">
+                    <p><strong>Category:</strong> Academic</p>
+                    <p><strong>Date:</strong> Coming Soon</p>
+                    <p class="desc">Students showcased innovative IT and Computer Application projects, including interactive web developments (HTML/CSS/JS), robotics automation, smart hardware models, and software utility applications built during the semester.</p>
+                </div>
+            </div>
+
+            <!-- 3. Sports Day Detail (दूसरा लिंक - IMG-20260907-WA0043.jpg) -->
+            <div id="detail-sports" class="detail-content">
+                <h2>Annual Sports Days</h2>
+                <img src="https://github.com/onkarrahinj1-png/Image-/raw/refs/heads/main/IMG-20260907-WA0043.jpg" alt="Annual Sports Days" class="detail-img">
+                <div class="info-box">
