@@ -1,4 +1,4 @@
-// श्रेणी अनुसार फिल्टर करें
+// Filter Events by Category
 function filterEvents(category, evt) {
     const cards = document.querySelectorAll('.card');
     const buttons = document.querySelectorAll('.filter-btn');
@@ -19,7 +19,7 @@ function filterEvents(category, evt) {
     });
 }
 
-// 📄 Next Page खोलने का फंक्शन
+// Open Event Detail View
 function openDetailPage(eventId) {
     document.getElementById('events-list-page').classList.add('hidden-page');
     document.getElementById('event-detail-page').classList.remove('hidden-page');
@@ -35,12 +35,13 @@ function openDetailPage(eventId) {
     window.scrollTo(0, 0);
 }
 
-// 🔙 Back To Events List
+// Back to Events List View
 function showListPage() {
     document.getElementById('event-detail-page').classList.add('hidden-page');
     document.getElementById('events-list-page').classList.remove('hidden-page');
     window.scrollTo(0, 0);
 }
+
 // Student & Teacher Fixed Login Verification
 function handleLogin(event) {
     event.preventDefault();
@@ -48,13 +49,13 @@ function handleLogin(event) {
     const usernameInput = document.getElementById('username').value.trim();
     const passwordInput = document.getElementById('password').value.trim();
 
-    // फ़िक्स यूजरनेम और पासवर्ड
+    // Fixed Username & Password
     const correctUsername = "nagarclg@1947";
     const correctPassword = "aca.2026";
 
     if (usernameInput === correctUsername && passwordInput === correctPassword) {
         alert("Login Successful! Welcome to Ahmednagar College Portal.");
-        window.location.href = "index.html"; // सही क्रेडेंशियल्स पर होम पेज खुलेगा
+        window.location.href = "events.html"; // Opens main events page on successful login
     } else {
         alert("Incorrect Username or Password! Please check and try again.");
     }
