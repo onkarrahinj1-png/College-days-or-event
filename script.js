@@ -41,3 +41,21 @@ function showListPage() {
     document.getElementById('events-list-page').classList.remove('hidden-page');
     window.scrollTo(0, 0);
 }
+// Student & Teacher Fixed Login Verification
+function handleLogin(event) {
+    event.preventDefault();
+    
+    const usernameInput = document.getElementById('username').value.trim();
+    const passwordInput = document.getElementById('password').value.trim();
+
+    // फ़िक्स यूजरनेम और पासवर्ड
+    const correctUsername = "nagarclg@1947";
+    const correctPassword = "aca.2026";
+
+    if (usernameInput === correctUsername && passwordInput === correctPassword) {
+        alert("Login Successful! Welcome to Ahmednagar College Portal.");
+        window.location.href = "index.html"; // सही क्रेडेंशियल्स पर होम पेज खुलेगा
+    } else {
+        alert("Incorrect Username or Password! Please check and try again.");
+    }
+}
