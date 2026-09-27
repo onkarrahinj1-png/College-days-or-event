@@ -1,3 +1,10 @@
+// Show Events List from Home Landing Page
+function showEventsList() {
+    document.getElementById('home-landing-page').classList.add('hidden-page');
+    document.getElementById('events-list-page').classList.remove('hidden-page');
+    window.scrollTo(0, 0);
+}
+
 // Filter Events by Category
 function filterEvents(category, evt) {
     const cards = document.querySelectorAll('.card');
@@ -55,7 +62,7 @@ function handleLogin(event) {
 
     if (usernameInput === correctUsername && passwordInput === correctPassword) {
         alert("Login Successful! Welcome to Ahmednagar College Portal.");
-        window.location.href = "events.html"; // Opens main events page on successful login
+        window.location.href = "events.html";
     } else {
         alert("Incorrect Username or Password! Please check and try again.");
     }
