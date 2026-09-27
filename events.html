@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>College Events & Festivals 2026/27 </title>
+    <title>College Events & Festivals</title>
     <link rel="stylesheet" href="style.css">
     <style>
         .multi-img-container {
@@ -26,23 +26,56 @@
                 width: 100%;
             }
         }
+        /* Landing Page Extra Style */
+        .landing-container {
+            text-align: center;
+            padding: 40px 20px;
+            background: white;
+            max-width: 600px;
+            margin: 40px auto;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .enter-btn {
+            background-color: #1e3c72;
+            color: white;
+            padding: 12px 25px;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 20px;
+            transition: 0.3s ease;
+        }
+        .enter-btn:hover {
+            background-color: #2a5298;
+        }
     </style>
 </head>
 <body>
 
     <!-- Header Section -->
-    
-<header>
-    <h1>🎓 College Events & Festivals</h1>
-<h2>Welcome to Computer Science Department</h2>
-    <p>Check out all the programs and events in our college</p>
+    <header>
+        <h1>🎓 College Events & Festivals</h1>
+        <h2>Welcome to Computer Science Department</h2>
+        <p>Check out all the programs and events in our college</p>
 
-    <!-- Logout Button -->
-    <a href="index.html" style="display:inline-block; margin-top:12px; padding:8px 18px; background-color:#ffffff; color:#dc3545; text-decoration:none; border-radius:6px; font-weight:bold; box-shadow: 0 2px 5px rgba(0,0,0,0.15);">Logout</a>
-</header>
-    
-    <!-- 📄 Page 1: Main Events List Page -->
-    <div id="events-list-page">
+        <!-- Logout Button -->
+        <a href="index.html" style="display:inline-block; margin-top:12px; padding:8px 18px; background-color:#ffffff; color:#dc3545; text-decoration:none; border-radius:6px; font-weight:bold; box-shadow: 0 2px 5px rgba(0,0,0,0.15);">Logout</a>
+    </header>
+
+    <!-- 🏠 Page 0: Landing / Welcome Page -->
+    <div id="home-landing-page">
+        <div class="landing-container">
+            <h2>Welcome to College Days & Events Portal</h2>
+            <p style="margin-top: 10px; color: #666;">Explore all upcoming and past events, cultural festivals, and sports activities.</p>
+            <button class="enter-btn" onclick="showEventsList()">🎉 Click to College Events & Days</button>
+        </div>
+    </div>
+
+    <!-- 📄 Page 1: Main Events List Page (Initially Hidden) -->
+    <div id="events-list-page" class="hidden-page">
 
         <!-- Filter Buttons -->
         <div class="filter-container">
@@ -62,10 +95,10 @@
                 <p class="tap-hint">👉 Click to view details & photo</p>
             </div>
 
-            <!-- 2. Techno mutation -->
+            <!-- 2. Techno Mutation -->
             <div class="card academic" onclick="openDetailPage('expo')">
                 <span class="badge">Academic</span>
-                <h3>Techno Mutation</h3></h3>
+                <h3>Techno Mutation</h3>
                 <p class="tap-hint">👉 Click to view details & photo</p>
             </div>
 
@@ -100,7 +133,6 @@
         </main>
     </div>
 
-
     <!-- 📄 Page 2: Event Detail View -->
     <div id="event-detail-page" class="hidden-page">
         <div class="detail-container">
@@ -111,8 +143,8 @@
                 <h2>Bollywood Day</h2>
                 <img src="IMG-20260907-WA0028.jpg" alt="Bollywood Day" class="detail-img">
                 <div class="info-box">
-                    <p><strong>Category:</strong> 11/02/2026</p>
-                    <p><strong>Date:</strong> Cominon</p>
+                    <p><strong>Category:</strong> Cultural</p>
+                    <p><strong>Date:</strong> 11/02/2026</p>
                     <p class="desc">Students dressed up as iconic Bollywood characters from movies like 3 Idiots, classic retro films, and modern blockbusters. Everyone showcased unique costumes, participated in a Bollywood ramp walk, and recreated iconic dialogue deliveries and group dance performances.</p>
                 </div>
             </div>
@@ -122,10 +154,9 @@
                 <h2>IT Project Expo</h2>
                 <img src="IMG-20260922-WA0189.jpg" class="detail-img" alt="IT Project Expo Photo 1">
                 <img src="Image-37927.jpg" class="detail-img" alt="IT Project Expo Photo 2">
-    
                 <div class="info-box">
                     <p><strong>Category:</strong> Academic</p>
-                    <p><strong>Date:</strong> 22/09/2026 </p>
+                    <p><strong>Date:</strong> 22/09/2026</p>
                     <p class="desc">Students showcased innovative IT and Computer Application projects, including interactive web developments (HTML/CSS/JS), robotics automation, smart hardware models, and software utility applications built during the semester.</p>
                 </div>
             </div>
