@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Student Portal</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .admin-container {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 20px;
+        }
+        .admin-card {
+            background: #ffffff;
+            padding: 20px;
+            margin-bottom: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .admin-card h3 {
+            margin-bottom: 15px;
+            color: #1e3c72;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 8px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #1e3c72;
+            color: white;
+        }
+        .upload-form input, .upload-form textarea, .upload-form select {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        .logout-btn {
+            background-color: #dc3545;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            float: right;
+            font-weight: bold;
+        }
+        .delete-btn {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>⚙️ Admin Dashboard</h1>
+        <p>Manage Registered Students, Login Activity & College Events</p>
+        <button class="logout-btn" onclick="adminLogout()">Admin Logout</button>
+        <div style="clear: both;"></div>
+    </header>
+
+    <div class="admin-container">
+
+        <!-- Section 1: Registered Students List -->
+        <div class="admin-card">
+            <h3>👥 Registered Students List</h3>
+            <div style="overflow-x:auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Full Name</th>
+                            <th>Roll No / ID</th>
+                            <th>Email</th>
+                            <th>Reg. Date</th>
+                        </tr>
+                    </thead>
+                    <tbody id="studentTableBody">
+                        <!-- Student data dynamically loaded here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Section 2: Active & Recent Logins -->
+        <div class="admin-card">
+            <h3>🔑 Recent Student Login Activity</h3>
+            <ul id="loginActivityList" style="line-height: 1.8; padding-left: 20px;">
+                <!-- Login logs dynamically loaded here -->
+            </ul>
+        </div>
+
+        <!-- Section 3: Add College Events & Days Information -->
+        <div class="admin-card">
+            <h3>🎉 Add New Event / Days Information</h3>
+            <form id="eventForm" class="upload-form" onsubmit="addCollegeEvent(event)">
+                <input type="text" id="eventTitle" placeholder="Event Name (e.g., Bollywood Day, Women's Day)" required>
+                
+                <select id="eventCategory" required>
+                    <option value="" disabled selected>Select Category</option>
+                    <option value="Cultural">Cultural</option>
+                    <option value="Academic">Academic</option>
+                    <option value="Sports">Sports</option>
+                </select>
+
+                <input type="date" id="eventDate" required>
+                <input type="text" id="eventImage" placeholder="Image File Name (e.g., womensday.jpg)" required>
+                <textarea id="eventDesc" rows="3" placeholder="Event Description / Highlights" required></textarea>
+                
+                <button type="submit" class="enter-btn" style="width: auto;">Upload Event Info</button>
+            </form>
+            
+            <h4 style="margin-top: 25px; color: #1e3c72;">Uploaded Events List:</h4>
+            <div style="overflow-x:auto; margin-top: 10px;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Event Name</th>
+                            <th>Category</th>
+                            <th>Date</th>
+                            <th>Image</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="eventTableBody">
+                        <!-- Uploaded events dynamically loaded here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="admin-script.js"></script>
+</body>
+</html>
