@@ -2,13 +2,12 @@
 // 1. ADMIN AUTHENTICATION & ACCESS CONTROL
 // ==========================================
 
-// Handle Admin Login (admin-login.html के लिए)
+// Handle Admin Login
 function handleAdminLogin(e) {
     e.preventDefault();
     const user = document.getElementById("adminUsername").value.trim();
     const pass = document.getElementById("adminPassword").value.trim();
 
-    // Default Credentials
     if (user === "admin" && pass === "admin123") {
         localStorage.setItem("isAdminLoggedIn", "true");
         alert("Admin Login Successful!");
@@ -18,28 +17,26 @@ function handleAdminLogin(e) {
     }
 }
 
-// Admin Logout Function
+// Admin Logout
 function adminLogout() {
     localStorage.removeItem("isAdminLoggedIn");
     alert("Admin Logged Out Successfully!");
     window.location.href = "admin-login.html";
 }
 
-// Ensure Page Access & Load All Data on Dashboard Load
+// Security Check & Load All Data
 document.addEventListener("DOMContentLoaded", function () {
     const currentPage = window.location.pathname.split("/").pop();
 
     if (currentPage === "admin-dashboard.html") {
         const isAdminLoggedIn = localStorage.getItem("isAdminLoggedIn");
         
-        // Security Guard: Check if Admin is logged in
         if (!isAdminLoggedIn || isAdminLoggedIn !== "true") {
             alert("Please login as Admin first!");
             window.location.href = "admin-login.html";
             return;
         }
 
-        // Load dashboard data
         loadRegisteredStudents();
         loadLoginLogs();
         loadAdminEvents();
@@ -48,7 +45,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 // ==========================================
-// 2. REGISTERED STUDENTS & LOGIN LOGS
+// 2. REGISTERED STUDENTS MANAGEMENT (DELETE FEATURE)
 // ==========================================
 
 // Load Registered Students Table
@@ -60,7 +57,7 @@ function loadRegisteredStudents() {
     tbody.innerHTML = "";
 
     if (students.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;">No students registered yet.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;">No students registered yet.</td></tr>`;
         return;
     }
 
@@ -72,12 +69,29 @@ function loadRegisteredStudents() {
                 <td>${std.rollNo}</td>
                 <td>${std.email}</td>
                 <td>${std.date || 'N/A'}</td>
+                <td><button class="delete-btn" onclick="deleteStudent(${index})">Delete Student</button></td>
             </tr>
         `;
     });
 }
 
-// Load Student Login Activity Logs
+// Delete Registered Student
+function deleteStudent(index) {
+    if (confirm("Are you sure you want to remove this student account?")) {
+        let students = JSON.parse(localStorage.getItem("studentsList")) || [];
+        students.splice(index, 1);
+        localStorage.setItem("studentsList", JSON.stringify(students));
+        loadRegisteredStudents();
+        alert("Student deleted successfully!");
+    }
+}
+
+
+// ==========================================
+// 3. LOGIN ACTIVITY LOGS MANAGEMENT
+// ==========================================
+
+// Load Login Activity
 function loadLoginLogs() {
     const logList = document.getElementById("loginActivityList");
     if (!logList) return;
@@ -90,17 +104,30 @@ function loadLoginLogs() {
         return;
     }
 
-    logs.reverse().forEach(log => {
-        logList.innerHTML += `<li><strong>${log.name}</strong> (${log.email}) logged in at <em>${log.time}</em></li>`;
+    logs.reverse().forEach((log, index) => {
+        logList.innerHTML += `
+            <li style="margin-bottom: 5px;">
+                🟢 <strong>${log.name}</strong> (${log.email}) logged in at <em>${log.time}</em>
+            </li>
+        `;
     });
+}
+
+// Clear All Login Logs
+function clearLoginLogs() {
+    if (confirm("Are you sure you want to clear all student login activity logs?")) {
+        localStorage.removeItem("loginLogs");
+        loadLoginLogs();
+        alert("All login logs cleared!");
+    }
 }
 
 
 // ==========================================
-// 3. COLLEGE EVENTS & DAYS MANAGEMENT
+// 4. EVENTS MANAGEMENT (ADD / DELETE)
 // ==========================================
 
-// Function to Add Event / Days Info
+// Add Event
 function addCollegeEvent(e) {
     e.preventDefault();
     const title = document.getElementById("eventTitle").value.trim();
@@ -118,7 +145,7 @@ function addCollegeEvent(e) {
     alert("New Event Information Added Successfully!");
 }
 
-// Function to Load Events Table in Dashboard
+// Load Events Table
 function loadAdminEvents() {
     const tbody = document.getElementById("eventTableBody");
     if (!tbody) return;
@@ -138,18 +165,19 @@ function loadAdminEvents() {
                 <td>${evt.category}</td>
                 <td>${evt.date}</td>
                 <td><code>${evt.image}</code></td>
-                <td><button class="delete-btn" onclick="deleteEvent(${index})">Delete</button></td>
+                <td><button class="delete-btn" onclick="deleteEvent(${index})">Delete Event</button></td>
             </tr>
         `;
     });
 }
 
-// Function to Delete Event
+// Delete Event
 function deleteEvent(index) {
     if (confirm("Are you sure you want to delete this event?")) {
         let events = JSON.parse(localStorage.getItem("adminUploadedEvents")) || [];
         events.splice(index, 1);
         localStorage.setItem("adminUploadedEvents", JSON.stringify(events));
         loadAdminEvents();
+        alert("Event deleted successfully!");
     }
 }
