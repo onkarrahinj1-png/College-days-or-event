@@ -5,26 +5,55 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>College Portal Login</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        .login-links {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9rem;
+        }
+        .login-links a {
+            color: #1e3c72;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .login-links a:hover {
+            text-decoration: underline;
+        }
+        .admin-link-btn {
+            background-color: #f0f4f8;
+            padding: 6px 12px;
+            border-radius: 5px;
+            border: 1px solid #1e3c72;
+        }
+    </style>
 </head>
 <body class="login-body">
 
     <div class="login-container">
         <h2>🎓 College Portal Login</h2>
-        <p>Please enter Username and Password</p>
+        <p>Please enter Email / Roll No and Password</p>
 
         <form id="login-form" onsubmit="handleLogin(event)">
             <div class="input-group">
-                <label for="username">Username</label>
-                <input type="text" id="username" required autocomplete="off">
+                <label for="username">Email / Roll No</label>
+                <input type="text" id="username" placeholder="Enter Email or Roll No" required autocomplete="off">
             </div>
 
             <div class="input-group">
                 <label for="password">Password</label>
-                <input type="password" id="password" required>
+                <input type="password" id="password" placeholder="Enter Password" required>
             </div>
 
             <button type="submit" class="login-btn">Login</button>
         </form>
+
+        <!-- New Registration & Admin Links -->
+        <div class="login-links">
+            <a href="register.html">📝 New Registration</a>
+            <a href="admin-login.html" class="admin-link-btn">⚙️ Admin Login</a>
+        </div>
 
     </div>
 
