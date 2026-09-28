@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Registration - College Portal</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="login-body">
+
+    <div class="login-container">
+        <h2>📝 Student Registration</h2>
+        <p>First time user? Please register your details.</p>
+
+        <form id="registerForm" onsubmit="handleRegistration(event)">
+            <div class="input-group">
+                <label for="fullName">Full Name</label>
+                <input type="text" id="fullName" placeholder="Enter your full name" required>
+            </div>
+
+            <div class="input-group">
+                <label for="rollNo">Roll Number / Student ID</label>
+                <input type="text" id="rollNo" placeholder="Enter Roll No or ID" required>
+            </div>
+
+            <div class="input-group">
+                <label for="regEmail">Email Address</label>
+                <input type="email" id="regEmail" placeholder="Enter your email" required>
+            </div>
+
+            <div class="input-group">
+                <label for="regPassword">Create Password</label>
+                <input type="password" id="regPassword" placeholder="Create a password" required>
+            </div>
+
+            <button type="submit" class="login-btn">Register Student</button>
+        </form>
+
+        <div class="back-link">
+            <p style="margin-top: 15px; font-size: 13px; color: #666;">
+                Already Registered? <a href="index.html">Go to Login</a>
+            </p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
