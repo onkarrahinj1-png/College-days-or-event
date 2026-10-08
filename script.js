@@ -2,7 +2,7 @@
 // 1. SUPABASE INITIALIZATION
 // ==========================================
 const SUPABASE_URL = "https://cixcdchvkzwhcfkdtjxs.supabase.co";
-const SUPABASE_KEY = "sb_publishable_5kDtCBsEgOI7i0-jGwWHuw_AAuSZNwf"; // आपकी Copy की हुई Publishable Key
+const SUPABASE_KEY = "sb_publishable_5kDtCBsEgOI7i0-jGwWHuw_AAuSZNwf"; 
 const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 // ==========================================
@@ -12,7 +12,8 @@ const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 function showEventsList() {
     document.getElementById('home-landing-page').classList.add('hidden-page');
     document.getElementById('events-list-page').classList.remove('hidden-page');
-    loadSupabaseEvents(); // Supabase से सेव की हुई इवेंट्स लोड होंगी
+    document.getElementById('event-detail-page').classList.add('hidden-page');
+    loadSupabaseEvents();
     window.scrollTo(0, 0);
 }
 
@@ -36,6 +37,30 @@ function filterEvents(category, evt) {
     });
 }
 
+// Open Static Event Detail View (Bollywood, Sports, etc.)
+function openDetailPage(eventId) {
+    document.getElementById('events-list-page').classList.add('hidden-page');
+    document.getElementById('event-detail-page').classList.remove('hidden-page');
+
+    // Clear and hide dynamic content
+    const dynamicBox = document.getElementById('dynamic-detail-content');
+    dynamicBox.classList.remove('active');
+    dynamicBox.innerHTML = '';
+
+    // Hide all static details first
+    const contents = document.querySelectorAll('.detail-content');
+    contents.forEach(content => content.classList.remove('active'));
+
+    // Show selected static detail
+    const activeContent = document.getElementById('detail-' + eventId);
+    if (activeContent) {
+        activeContent.classList.add('active');
+    }
+
+    window.scrollTo(0, 0);
+}
+
+// Back to Events List View
 function showListPage() {
     document.getElementById('event-detail-page').classList.add('hidden-page');
     document.getElementById('events-list-page').classList.remove('hidden-page');
@@ -43,7 +68,7 @@ function showListPage() {
 }
 
 // ==========================================
-// 3. STUDENT REGISTRATION & LOGIN (Supabase Connected)
+// 3. STUDENT REGISTRATION & LOGIN
 // ==========================================
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -55,7 +80,6 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 });
 
-// Student Registration Form Handler
 async function handleRegistration(event) {
     event.preventDefault();
     
@@ -65,7 +89,6 @@ async function handleRegistration(event) {
     const password = document.getElementById("regPassword").value.trim();
 
     try {
-        // Supabase Database 'Student registration' टेबल में डेटा डालना
         const { data, error } = await supabase
             .from('Student registration')
             .insert([
@@ -82,7 +105,6 @@ async function handleRegistration(event) {
             return;
         }
 
-        // Local Storage Sync
         let students = JSON.parse(localStorage.getItem("studentsList")) || [];
         students.push({ name, rollNo, email, password, date: new Date().toLocaleDateString() });
         localStorage.setItem("studentsList", JSON.stringify(students));
@@ -96,7 +118,6 @@ async function handleRegistration(event) {
     }
 }
 
-// Student Login Verification
 function handleLogin(event) {
     event.preventDefault();
     
@@ -118,7 +139,7 @@ function handleLogin(event) {
 }
 
 // ==========================================
-// 4. IMAGE UPLOAD & EVENT CREATION (Supabase Storage)
+// 4. IMAGE UPLOAD & DYNAMIC EVENT DETAILS (Page 2 Fixed)
 // ==========================================
 
 async function uploadEventWithPhoto(event) {
@@ -141,21 +162,21 @@ async function uploadEventWithPhoto(event) {
     uploadBtn.disabled = true;
 
     try {
-        // 1. Photo को Supabase Storage 'event-images' में अपलोड करें
+        // 1. Upload Image to Supabase Storage
         const { data: storageData, error: storageError } = await supabase.storage
             .from('event-images')
             .upload(fileName, file);
 
         if (storageError) throw storageError;
 
-        // 2. Photo का Public Link प्राप्त करें
+        // 2. Get Public Image URL
         const { data: urlData } = supabase.storage
             .from('event-images')
             .getPublicUrl(fileName);
 
         const publicImageUrl = urlData.publicUrl;
 
-        // 3. Events टेबल में जानकारी सेव करें (If table exists)
+        // 3. Insert Event Entry into Database
         const { error: dbError } = await supabase
             .from('events')
             .insert([
@@ -180,17 +201,20 @@ async function uploadEventWithPhoto(event) {
     }
 }
 
-// Fetch Events from Supabase
+// Fetch and Render Dynamic Events from Supabase
 async function loadSupabaseEvents() {
     const grid = document.getElementById("dynamicEventsGrid");
     if (!grid) return;
+
+    // Remove existing dynamic cards before re-loading
+    document.querySelectorAll('.dynamic-card').forEach(el => el.remove());
 
     const { data: events, error } = await supabase.from('events').select('*');
     if (error || !events) return;
 
     events.forEach(evt => {
         const card = document.createElement("div");
-        card.className = `card ${evt.category ? evt.category.toLowerCase() : 'cultural'}`;
+        card.className = `card dynamic-card ${evt.category ? evt.category.toLowerCase() : 'cultural'}`;
         card.onclick = () => showCustomEventDetail(evt);
         card.innerHTML = `
             <span class="badge">${evt.category || 'Event'}</span>
@@ -201,18 +225,26 @@ async function loadSupabaseEvents() {
     });
 }
 
+// Show Page 2 Detail View for Newly Uploaded Supabase Events
 function showCustomEventDetail(evt) {
     document.getElementById('events-list-page').classList.add('hidden-page');
     document.getElementById('event-detail-page').classList.remove('hidden-page');
 
+    // Hide all static detail views
+    const contents = document.querySelectorAll('.detail-content');
+    contents.forEach(content => content.classList.remove('active'));
+
+    // Render Dynamic Event Detail View
     const detailContainer = document.getElementById('dynamic-detail-content');
     detailContainer.innerHTML = `
         <h2>${evt.title}</h2>
-        <img src="${evt.image_url}" class="detail-img" alt="${evt.title}">
-        <div class="info-box">
+        <img src="${evt.image_url}" class="detail-img" alt="${evt.title}" style="max-width:100%; border-radius:8px; margin-top:10px;">
+        <div class="info-box" style="margin-top:15px;">
             <p><strong>Category:</strong> ${evt.category}</p>
-            <p class="desc">${evt.description}</p>
+            <p class="desc" style="margin-top:8px;">${evt.description}</p>
         </div>
     `;
+    detailContainer.classList.add('active');
+
+    window.scrollTo(0, 0);
 }
-    
