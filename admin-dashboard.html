@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard - Student Portal</title>
     <link rel="stylesheet" href="style.css">
+    <!-- Supabase JS Client CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
         .admin-container {
             max-width: 1000px;
@@ -94,7 +96,7 @@
 
         <!-- Section 1: Registered Students List with Delete Action -->
         <div class="admin-card">
-            <h3>👥 Registered Students List</h3>
+            <h3>👥 Registered Students List (Live Supabase Data)</h3>
             <div style="overflow-x:auto;">
                 <table>
                     <thead>
@@ -103,12 +105,11 @@
                             <th>Full Name</th>
                             <th>Roll No / ID</th>
                             <th>Email</th>
-                            <th>Reg. Date</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody id="studentTableBody">
-                        <!-- Student data dynamically loaded here -->
+                        <!-- Student data dynamically loaded from Supabase -->
                     </tbody>
                 </table>
             </div>
@@ -138,11 +139,10 @@
                     <option value="Sports">Sports</option>
                 </select>
 
-                <input type="date" id="eventDate" required>
-                <input type="text" id="eventImage" placeholder="Image File Name (e.g., womensday.jpg)" required>
+                <input type="text" id="eventImage" placeholder="Image File Name / URL" required>
                 <textarea id="eventDesc" rows="3" placeholder="Event Description / Highlights" required></textarea>
                 
-                <button type="submit" class="enter-btn" style="width: auto;">Upload Event Info</button>
+                <button type="submit" id="eventSubmitBtn" class="enter-btn" style="width: auto; background-color:#1e3c72; color:#fff; padding:10px 20px; border:none; border-radius:5px; cursor:pointer;">Upload Event Info</button>
             </form>
             
             <h4 style="margin-top: 25px; color: #1e3c72;">Uploaded Events List:</h4>
@@ -152,7 +152,6 @@
                         <tr>
                             <th>Event Name</th>
                             <th>Category</th>
-                            <th>Date</th>
                             <th>Image</th>
                             <th>Action</th>
                         </tr>
