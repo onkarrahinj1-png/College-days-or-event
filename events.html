@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>College Events & Festivals</title>
     <link rel="stylesheet" href="style.css">
+    <!-- Supabase JS Client CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
         .multi-img-container {
             display: flex;
@@ -26,7 +28,6 @@
                 width: 100%;
             }
         }
-        /* Landing Page Extra Style */
         .landing-container {
             text-align: center;
             padding: 40px 20px;
@@ -51,6 +52,33 @@
         .enter-btn:hover {
             background-color: #2a5298;
         }
+        /* Custom Supabase Form Styling */
+        .supabase-form-card {
+            background: #ffffff;
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 500px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .supabase-form-card input, .supabase-form-card select, .supabase-form-card textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        .supabase-form-card button {
+            width: 100%;
+            padding: 12px;
+            background-color: #16a34a;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -74,7 +102,7 @@
         </div>
     </div>
 
-    <!-- 📄 Page 1: Main Events List Page (Initially Hidden) -->
+    <!-- 📄 Page 1: Main Events List Page -->
     <div id="events-list-page" class="hidden-page">
 
         <!-- Filter Buttons -->
@@ -85,86 +113,26 @@
             <button class="filter-btn" onclick="filterEvents('sports', event)">Sports</button>
         </div>
 
-        <!-- Events Grid -->
-        <main class="events-grid">
-            
-            <!-- 1. Bollywood Day -->
-            <div class="card cultural" onclick="openDetailPage('bollywood')">
-                <span class="badge">Cultural</span>
-                <h3>Bollywood Day2026</h3>
-                <p class="tap-hint">👉 Click to view details & photo</p>
-            </div>
+        <!-- Add New Event / Image Upload Section -->
+        <div class="supabase-form-card">
+            <h3>➕ Add New Event (Upload Photo)</h3>
+            <form id="addEventForm" onsubmit="uploadEventWithPhoto(event)">
+                <input type="text" id="eventTitle" placeholder="Event Title" required>
+                <select id="eventCategory" required>
+                    <option value="Cultural">Cultural</option>
+                    <option value="Academic">Academic</option>
+                    <option value="Sports">Sports</option>
+                </select>
+                <textarea id="eventDesc" placeholder="Event Description" required></textarea>
+                <label style="font-size:0.9rem; font-weight:bold;">Upload Event Banner/Photo:</label>
+                <input type="file" id="eventImageFile" accept="image/*" required>
+                <button type="submit" id="uploadBtn">Upload & Publish Event</button>
+            </form>
+        </div>
 
-            <!-- 2. Techno Mutation -->
-            <div class="card academic" onclick="openDetailPage('expo')">
-                <span class="badge">Academic</span>
-                <h3>Techno Mutation</h3>
-                <p class="tap-hint">👉 Click to view details & photo</p>
-            </div>
-
-            <!-- 3. Annual Sports Days -->
-            <div class="card sports" onclick="openDetailPage('sports')">
-                <span class="badge">Sports</span>
-                <h3>Annual Sports Days</h3>
-                <p class="tap-hint">👉 Click to view details & photo</p>
-            </div>
-
-            <!-- 4. Traditional Day Festival -->
-            <div class="card cultural" onclick="openDetailPage('traditional')">
-                <span class="badge">Cultural</span>
-                <h3>Traditional Day Festival</h3>
-                <p class="tap-hint">👉 Click to view details & photo</p>
-            </div>
-
-            <!-- 5. Color Day -->
-            <div class="card cultural" onclick="openDetailPage('colorday')">
-                <span class="badge">Cultural</span>
-                <h3>Color Day</h3>
-                <p class="tap-hint">👉 Click to view details & photo</p>
-            </div>
-
-            <!-- 6. Food Festival -->
-            <div class="card cultural" onclick="openDetailPage('foodfestival')">
-                <span class="badge">Cultural</span>
-                <h3>Food Festival Day</h3>
-                <p class="tap-hint">👉 Click to view details & photo</p>
-            </div>
-
-            <!-- 7. Women's Day -->
-            <div class="card cultural" onclick="openDetailPage('womensday')">
-                <span class="badge">Cultural</span>
-                <h3>Women's Day Celebration</h3>
-                <p class="tap-hint">👉 Click to view details & photo</p>
-            </div>
-
-            <!-- 8. Fresher's Party -->
-            <div class="card cultural" onclick="openDetailPage('freshers')">
-                <span class="badge">Cultural</span>
-                <h3>Fresher's Party</h3>
-                <p class="tap-hint">👉 Click to view details & photo</p>
-            </div>
-
-            <!-- 9. Farewell Party -->
-            <div class="card cultural" onclick="openDetailPage('farewell')">
-                <span class="badge">Cultural</span>
-                <h3>Farewell Party</h3>
-                <p class="tap-hint">👉 Click to view details & photo</p>
-            </div>
-
-            <!-- 10. Teacher's Day -->
-            <div class="card academic" onclick="openDetailPage('teachersday')">
-                <span class="badge">Academic</span>
-                <h3>Teacher's Day Celebration</h3>
-                <p class="tap-hint">👉 Click to view details & photo</p>
-            </div>
-
-            <!-- 11. Independence Day -->
-            <div class="card cultural" onclick="openDetailPage('independenceday')">
-                <span class="badge">Cultural</span>
-                <h3>Independence Day Celebration</h3>
-                <p class="tap-hint">👉 Click to view details & photo</p>
-            </div>
-
+        <!-- Dynamic Events Grid -->
+        <main class="events-grid" id="dynamicEventsGrid">
+            <!-- Events from Supabase & static cards will appear here -->
         </main>
     </div>
 
@@ -172,133 +140,7 @@
     <div id="event-detail-page" class="hidden-page">
         <div class="detail-container">
             <button class="back-btn" onclick="showListPage()">← Back to Events List</button>
-
-            <!-- 1. Bollywood Day Detail -->
-            <div id="detail-bollywood" class="detail-content">
-                <h2>Bollywood Day</h2>
-                <img src="IMG-20260907-WA0028.jpg" alt="Bollywood Day" class="detail-img">
-                <div class="info-box">
-                    <p><strong>Category:</strong> Cultural</p>
-                    <p><strong>Date:</strong> 11/02/2026</p>
-                    <p class="desc">Students dressed up as iconic Bollywood characters from movies like 3 Idiots, classic retro films, and modern blockbusters. Everyone showcased unique costumes, participated in a Bollywood ramp walk, and recreated iconic dialogue deliveries and group dance performances.</p>
-                </div>
-            </div>
-
-            <!-- 2. AI Project Expo Detail -->
-            <div id="detail-expo" class="detail-content">
-                <h2>IT Project Expo</h2>
-                <img src="IMG-20260922-WA0189.jpg" class="detail-img" alt="IT Project Expo Photo 1">
-                <img src="Image-37927.jpg" class="detail-img" alt="IT Project Expo Photo 2">
-                <div class="info-box">
-                    <p><strong>Category:</strong> Academic</p>
-                    <p><strong>Date:</strong> 22/09/2026</p>
-                    <p class="desc">Students showcased innovative IT and Computer Application projects, including interactive web developments (HTML/CSS/JS), robotics automation, smart hardware models, and software utility applications built during the semester.</p>
-                </div>
-            </div>
-
-            <!-- 3. Sports Day Detail -->
-            <div id="detail-sports" class="detail-content">
-                <h2>Annual Sports Days</h2>
-                <img src="IMG-20260907-WA0043.jpg" alt="Annual Sports Days" class="detail-img">
-                <div class="info-box">
-                    <p><strong>Category:</strong> Sports</p>
-                    <p><strong>Date:</strong> 09/02/2026</p>
-                    <p class="desc">An action-packed sports festival featuring energetic inter-class competitions such as tug of war, 100m sprint races, badminton, chess, and traditional games like sui-dhaaga tournaments.</p>
-                </div>
-            </div>
-
-            <!-- 4. Traditional Day Detail -->
-            <div id="detail-traditional" class="detail-content">
-                <h2>Traditional Day Festival</h2>
-                <img src="IMG-20260213-WA0033.jpg" alt="Traditional Day Festival" class="detail-img">
-                <div class="info-box">
-                    <p><strong>Category:</strong> Cultural</p>
-                    <p><strong>Date:</strong> 14/02/2026</p>
-                    <p class="desc">A celebration of cultural diversity where students wore vibrant ethnic attire, sarees, kurtas, and traditional regional outfits. The event featured folk dance performances, traditional music shows, and various cultural stalls.</p>
-                </div>
-            </div>
-
-            <!-- 5. Color Day Detail -->
-            <div id="detail-colorday" class="detail-content">
-                <h2>Color Day</h2>
-                <img src="IMG-20260213-WA0012.jpg" alt="Color Day" class="detail-img">
-                <div class="info-box">
-                    <p><strong>Category:</strong> Cultural</p>
-                    <p><strong>Date:</strong> 12/02/2026</p>
-                    <p class="desc">Everyone attended the event wearing stylish black shirts and grey pants in party wear themes. All the students and faculty looked incredibly stylish and well-dressed, creating a classy theme and vibrant atmosphere across the campus.</p>
-                </div>
-            </div>
-
-            <!-- 6. Food Festival Detail -->
-            <div id="detail-foodfestival" class="detail-content">
-                <h2>Food Festival Day</h2>
-                <div class="multi-img-container">
-                    <img src="IMG-20260211-WA0001.jpg" alt="Food Stall Photo 1">
-                    <img src="IMG-20260210-WA0006.jpg" alt="Food Stall Photo 2">
-                </div>
-                <div class="info-box">
-                    <p><strong>Category:</strong> Cultural</p>
-                    <p><strong>Date:</strong> 10/02/2026</p>
-                    <p class="desc">Students set up various delicious food stalls including Pani Puri, Cold Coffee, snacks, and refreshing drinks. It was a hugely successful food fair where everyone enjoyed tasting different dishes and hanging out with friends.</p>
-                </div>
-            </div>
-
-            <!-- 7. Women's Day Detail -->
-            <div id="detail-womensday" class="detail-content">
-                <h2>Women's Day Celebration</h2>
-                <img src="IMG-20260929-WA0025.jpg" class="detail-img" alt="Women's Day Celebration Photo 1">
-                <img src="IMG-20260929-WA0026.jpg" class="detail-img" alt="Women's Day Celebration Photo 2">
-                <div class="info-box">
-                    <p><strong>Category:</strong> Cultural</p>
-                    <p><strong>Date:</strong> 08/03/2026</p>
-                    <p class="desc">A grand celebration honoring female students, faculty, and staff members, showcasing women empowerment programs, cultural speeches, and special performances across the campus.</p>
-                </div>
-            </div>
-
-            <!-- 8. Fresher's Party Detail -->
-            <div id="detail-freshers" class="detail-content">
-                <h2>Fresher's Party</h2>
-                <img src="freshers.jpg" alt="First Year Fresher's Party" class="detail-img">
-                <div class="info-box">
-                    <p><strong>Category:</strong> Cultural</p>
-                    <p><strong>Date:</strong> 13/08/2025</p>
-                    <p class="desc">A grand welcome party organized by senior students for incoming first-year freshers. The event included talent showcases, music, dance performances, and Mr. & Ms. Fresher titles.</p>
-                </div>
-            </div>
-
-            <!-- 9. Farewell Party Detail -->
-            <div id="detail-farewell" class="detail-content">
-                <h2>Farewell Party</h2>
-                <img src="farewell.jpg" alt="Third Year Farewell" class="detail-img">
-                <div class="info-box">
-                    <p><strong>Category:</strong> Cultural</p>
-                    <p><strong>Date:</strong> 01/04/2026</p>
-                    <p class="desc">A memorable farewell gathering held to honor final year graduating students. Juniors organized emotional video tributes, fun awards, games, and speeches to give a grand send-off.</p>
-                </div>
-            </div>
-
-            <!-- 10. Teacher's Day Detail -->
-            <div id="detail-teachersday" class="detail-content">
-                <h2>Teacher's Day Celebration</h2>
-                <img src="teachersday.jpg" alt="Teacher's Day Celebration" class="detail-img">
-                <div class="info-box">
-                    <p><strong>Category:</strong> Academic</p>
-                    <p><strong>Date:</strong> 05/09/2026</p>
-                    <p class="desc">Students took over teaching roles for the day to express gratitude toward faculty members. Speeches, flower presentations, and entertaining cultural games were hosted for professors.</p>
-                </div>
-            </div>
-
-            <!-- 11. Independence Day Detail -->
-            <div id="detail-independenceday" class="detail-content">
-                <h2>Independence Day Celebration</h2>
-                <img src="independenceday.jpg" alt="Independence Day Celebration" class="detail-img">
-                <div class="info-box">
-                    <p><strong>Category:</strong> Cultural</p>
-                    <p><strong>Date:</strong> 15/08/2026</p>
-                    <p class="desc">Official flag hoisting ceremony followed by patriotic song performances, NCC parades, and inspiring addresses celebrating national pride and unity across the college premises.</p>
-                </div>
-            </div>
-
+            <div id="dynamic-detail-content" class="detail-content active"></div>
         </div>
     </div>
 
@@ -309,5 +151,4 @@
 
     <script src="script.js"></script>
 </body>
-                </html>
-                                                                                          
+</html>
